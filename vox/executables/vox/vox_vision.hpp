@@ -7,9 +7,6 @@
 #include "opencv/highgui.h"
 #include "opencv/cxcore.h"
 
-//#include "opencv2/highgui/highgui.hpp"
-//#include "opencv2/imgproc/imgproc.hpp"
-//#include "opencv2/core/core.hpp"
 
 namespace vox
 {
@@ -45,8 +42,6 @@ private:
 
 private:
     static VoxVision m_instance;
-    //CvCapture* m_cap;
-    //cv::VideoCapture* m_cap;
     std::vector<BallInfo> m_balls;
     volatile float m_ball_x;
     volatile float m_ball_y;
