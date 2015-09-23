@@ -1,0 +1,5 @@
+RAPIDJSON_TEST
+RAPIDJSON_TEST.log
+RAPIDJSON_TEST.trs
+test-suite.log
+test_main.cpp
