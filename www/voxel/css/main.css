@@ -1,0 +1,70 @@
+        <style>
+            body, table, td {
+                font-family: Arial, Helvetica, sans-serif, Tahoma, Verdana;
+                font-size : 12px;
+                display : none;
+                margin : 0;
+                padding : 0;
+            }
+            html{overflow : hidden;}
+            
+            h1{
+                font-size : 20pt;
+                color : #25a8e7;
+                margin : 15px 0 0 0;
+            }
+            
+            h4 {
+                font-size: 12px;
+                font-weight: bold;
+                color: #2c78bd;
+                margin: 16px 0 6px 0;
+            }
+            
+            p{
+                line-height : 1.3em;
+            }
+            
+            h2{
+                font-size : 11pt;
+                margin : 20px 0 0 0;
+            }
+            
+            div.description{
+                padding : 3px 30px 10px 0;
+            }
+            
+            pre.code {
+                background:white none repeat scroll 0 0;
+                color:black;
+                font-family:Courier New;
+                font-size:10pt;
+                margin:0;
+                padding:5px;
+                width : auto;
+                white-space:pre;
+                border:1px solid #ddd;
+                /*max-height : 600px;*/
+            }
+            
+            .demo_content{
+                padding : 5px 10px 10px 15px;
+                border : 1px solid #c3c3c3;
+                overflow : auto;
+            }
+            
+            .loading{
+                color : gray;
+                padding : 20px;
+            }
+            
+            .treedemo{
+                position : relative;
+                top : 10px;
+            }
+            
+            .barfill{
+                border : 1px solid #c3c3c3;
+                background : #f1f1f1;
+            }
+        </style>

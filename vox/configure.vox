@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+./configure --prefix=/home/pi/vox \
+cppflags="-DNDEBUG" \
+cflags="-g -Wall -O2 -Wno-deprecated-declarations -fno-omit-frame-pointer" \
+CXX=g++-4.6 \
+cxxflags="-g -Wall -O2 -Wno-deprecated-declarations -fno-omit-frame-pointer -lpthread -lrt"
+
