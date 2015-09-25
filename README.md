@@ -1,5 +1,5 @@
 Robot Voxel
-       \  ,__,
-        \ (oo)____
-          (_)     )\
-             ||--|| *
+
+$ autogen.sh
+$ configure.vox
+$ make
