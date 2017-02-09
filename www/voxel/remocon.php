@@ -27,6 +27,18 @@ var map = {'up':0,'dn':0,'fl':0,'ff':0,'fr':0,'ll':0,'st1':0,'st2':0,'rr':0,'bl'
 var acc = 3;
 var v_on = false;
 
+function speak()
+{
+  var obj = document.getElementById("txt");
+  if(!obj) return;
+  
+  var txt = obj.value;
+  if(!txt || txt == "") return;
+  
+  HttpGet(ajax, "/voxel/handle/control.php?cmd=fb&txt="+txt, cbControl);
+  obj.value = "";
+}
+
 function control(cmd)
 {
   HttpGet(ajax, "/voxel/handle/control.php?cmd="+cmd, cbControl);
@@ -179,16 +191,16 @@ function orient()
 </head>
 <body bgcolor="black" oncontextmenu="return false;" ondrag="return false;" ontouchmove="return false;" ondragstart="return false;" ondragend="return false;" onselectstart="return false;">
 
-<table border=0 width=330 height=270 cellpadding=0 cellspacing=0 align=center>
-<tr><td width=330 height=15></td></tr>
+<table border=0 width=330 height=250 cellpadding=0 cellspacing=0 align=center>
+<tr><td width=330 height=5></td></tr>
 <tr><td width=330 height=240 align=center>
 <img id="vid_panel" name="vid_panel" src="img/dog.png" width=320 height=240 border=0 onmousedown="webcam()" />
 <!--img id="vid_panel" name="vid_panel" src="img/dog2.png" width=320 height=240 border=0 onmousedown="video_flask()" style="-ms-transform: rotate(180deg); -webkit-transform: rotate(180deg); transform: rotate(180deg);"/-->
 </td></tr>
-<tr><td width=330 height=15></td></tr>
+<tr><td width=330 height=1></td></tr>
 </table>
 
-<table border=0 width=330 height=260 cellpadding=0 cellspacing=0 align=center>
+<table border=0 width=330 height=220 cellpadding=0 cellspacing=0 align=center>
 <tr>
 <td width=90 align=center>
 
@@ -199,7 +211,7 @@ function orient()
 <img id="up_on" src="img/up_on.png" width=47 height=30 style="display:none" />
 </td>
 </tr>
-<tr><td height=10></td></tr>
+<tr><td height=5></td></tr>
 <tr>
 <td width=47 height=30>
 <img id="ac5_off" src="img/ac5_off.png" width=47 height=20 style="display:inline" />
@@ -230,7 +242,7 @@ function orient()
 <img id="ac1_on" src="img/ac1_on.png" width=47 height=20 style="display:none" />
 </td>
 </tr>
-<tr><td height=10></td></tr>
+<tr><td height=5></td></tr>
 <tr>
 <td width=47 height=30 onmousedown="onMEvent('dn',1)" ontouchstart="onMEvent('dn',1)" onmouseup="onMEvent('dn',0)" onmouseleave="onMEvent('dn',0)" ontouchend="onMEvent('dn',0)">
 <img id="dn_off" src="img/dn_off.png" width=47 height=30 style="display:inline" />
@@ -243,7 +255,7 @@ function orient()
 <td width=20></td>
 <td align=center>
 
-<table border=0 width=195 height=65 cellpadding=0 cellspacing=0>
+<table border=0 width=195 height=52 cellpadding=0 cellspacing=0>
 <tr align=center>
 <td width=65 onmousedown="onMEvent('fl',1)" ontouchstart="onMEvent('fl',1)" onmouseup="onMEvent('fl',0)" onmouseleave="onMEvent('fl',0)" ontouchend="onMEvent('fl',0)">
 <img id="fl_off" src="img/fl_off.png" width=41 height=42 style="margin:10 0 0 10; display:inline" />
@@ -260,7 +272,7 @@ function orient()
 </tr>
 </table>
 
-<table border=0 width=195 height=65 cellpadding=0 cellspacing=0>
+<table border=0 width=195 height=52 cellpadding=0 cellspacing=0>
 <tr align=center>
 <td width=65 onmousedown="onMEvent('ll',1)" ontouchstart="onMEvent('ll',1)" onmouseup="onMEvent('ll',0)" onmouseleave="onMEvent('ll',0)" ontouchend="onMEvent('ll',0)">
 <img id="ll_off" src="img/ll_off.png" width=46 height=41 style="margin:0 0 0 0; display:inline" />
@@ -277,7 +289,7 @@ function orient()
 </tr>
 </table>
 
-<table border=0 width=195 height=50 cellpadding=0 cellspacing=0>
+<table border=0 width=195 height=52 cellpadding=0 cellspacing=0>
 <tr align=center>
 <td width=65 onmousedown="onMEvent('bl',1)" ontouchstart="onMEvent('bl',1)" onmouseup="onMEvent('bl',0)" onmouseleave="onMEvent('bl',0)" ontouchend="onMEvent('bl',0)">
 <img id="bl_off" src="img/bl_off.png" width=42 height=42 style="margin:0 0 10 10; display:inline" />
@@ -294,8 +306,8 @@ function orient()
 </tr>
 </table>
 
-<table border=0 width=195 height=55 cellpadding=0 cellspacing=0>
-<tr><td height=10></td></tr>
+<table border=0 width=195 height=52 cellpadding=0 cellspacing=0>
+<tr><td height=5></td></tr>
 <tr align=center>
 <td width=65 onmousedown="onMEvent('cc',1)" ontouchstart="onMEvent('cc',1)" onmouseup="onMEvent('cc',0)" onmouseleave="onMEvent('cc',0)" ontouchend="onMEvent('cc',0)">
 <img id="cc_off" src="img/cc_off.png" width=50 height=47 style="margin:0 0 0 0; display:inline" />
@@ -316,8 +328,8 @@ function orient()
 </tr>
 </table>
 
-<table border=0 width=330 height=70 cellpadding=0 cellspacing=0 align=center>
-<tr><td height=10></td></tr>
+<table border=0 width=330 height=50 cellpadding=0 cellspacing=0 align=center>
+<tr><td height=5></td></tr>
 <tr align=center>
 <td width=25 onmousedown="webcam()" align=center><b><font color=red>C</font><br /><font color=lightgreen>A</font><br /><font color=deepskyblue>M</font></b></td>
 <td width=15></td>
@@ -339,6 +351,15 @@ function orient()
 </td>
 </tr>
 </table>
+
+<form id="speaking_form" name="speaking_form" onsubmit="speak(); return false;">
+<table border=0 width=330 height=48 cellpadding=0 cellspacing=0 align=center>
+<tr>
+<td><input name="txt" id="txt" type="text" autocomplete="off" lang="kr" dir="ltr" spellcheck="false" style="width:100%;height:28px;padding-left:5px;font-weight:bold;" value=""></input></td>
+<td width="50"><input type=button onclick="speak();" value=" speak " style="width:100%;height:28px;"></input></td>
+</tr>
+</table>
+</form>
 
 </body>
 </html>

@@ -61,6 +61,9 @@ public:
     void setRsp(const std::string& r);
     int findVoiceCommand(const std::string& nos);
 
+    std::string stt();
+    void tts(const std::string& text, bool en = false);
+
 protected:
     VoxVoice();
     virtual ~VoxVoice();
@@ -69,8 +72,6 @@ private:
     std::string s2t(const std::string& jstr);
     std::string simsimi(const std::string& q);
     bool record();
-    std::string stt();
-    void tts(const std::string& text, bool en = false);
     void getPlayList(const std::string& path, std::vector<std::string>& ret);
     std::string calcTwoNums(const std::string& nos, int op);
 

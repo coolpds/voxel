@@ -2,6 +2,7 @@
 #include "vox_player.hpp"
 #include "vox_sensor.hpp"
 #include "vox_vision.hpp"
+#include "vox_voice.hpp"
 #include "vox_main.hpp"
 
 
@@ -338,9 +339,14 @@ void VoxControl::run()
 
             case FB:
                 {
+#if 0
                     VoxVision::getInstance().setFollowing(
                         !VoxVision::getInstance().isFollowing());
+#endif
                     g_main.setCmdStat(ST1);
+                    std::string txt = getFileContents("/tmp/tts.txt");
+                    if(!txt.empty())
+                        VoxVoice::getInstance().tts(txt, false);
                 }
                 break;
 

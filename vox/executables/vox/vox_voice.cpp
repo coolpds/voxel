@@ -398,9 +398,9 @@ std::string VoxVoice::stt()
     CURLcode rc = CURLE_OK;
     curl_slist* rsphdr = NULL;
     std::string key = GOOGLE_APIKEY1;
-    int callcnt = ((++m_callcnt) % 3);
-    if(callcnt == 1) key = ""GOOGLE_APIKEY2;
-    else if(callcnt == 2) key = ""GOOGLE_APIKEY3;
+    //int callcnt = ((++m_callcnt) % 3);
+    //if(callcnt == 1) key = ""GOOGLE_APIKEY2;
+    //else if(callcnt == 2) key = ""GOOGLE_APIKEY3;
     const std::string req = "https://www.google.com/speech-api/v2/recognize?output=json&lang=ko-KR&maxresults=10&key=" + key;
     const std::string path = "/dev/shm/cmd.json";
     std::string rstr = "";
@@ -499,14 +499,21 @@ void VoxVoice::tts(const std::string& text, bool en)
     const std::string mp3 = "/dev/shm/tts.mp3";
     std::string req = "";
 
+#if 0 // google api
     if(en)
         req = "http://translate.google.com/translate_tts?tl=en&ie=UTF-8&client=t&q=" + q;
     else
         req = "http://translate.google.com/translate_tts?tl=ko&ie=UTF-8&client=t&q=" + q;
 
     NOTICE("tts_req=%s", req.c_str());
+#endif
 
+    // naver openapi
+    req = "https://openapi.naver.com/v1/voice/tts.bin";
+
+    std::string postdata = "speaker=mijin&speed=0&text=" + q;
     CURL* ctx = NULL;
+    curl_slist* headers = NULL;
     CURLcode rc = CURLE_OK;
     FILE* fp = fopen(mp3.c_str(), "wb");
     long retcode = 0;
@@ -517,8 +524,27 @@ void VoxVoice::tts(const std::string& text, bool en)
     if(!(ctx = curl_easy_init()))
         goto error_success;
 
+#if 0 // google api
     curl_easy_setopt(ctx, CURLOPT_URL, req.c_str());
     curl_easy_setopt(ctx, CURLOPT_USERAGENT, USER_AGENT);
+    curl_easy_setopt(ctx, CURLOPT_NOPROGRESS, 1L);
+    //curl_easy_setopt(ctx, CURLOPT_VERBOSE, 1L);
+    curl_easy_setopt(ctx, CURLOPT_WRITEHEADER , stderr);
+    curl_easy_setopt(ctx, CURLOPT_WRITEDATA, fp);
+    //curl_easy_setopt(ctx, CURLOPT_WRITEFUNCTION, VoxVoice::playStream);
+#endif
+
+    // naver openapi
+    curl_easy_setopt(ctx, CURLOPT_URL, req.c_str());
+    curl_easy_setopt(ctx, CURLOPT_USERAGENT, USER_AGENT);
+
+    //curl_easy_setopt(ctx, CURLOPT_POSTFIELDSIZE, postdata.size());
+    curl_easy_setopt(ctx, CURLOPT_POSTFIELDS, postdata.c_str());
+
+    headers = curl_slist_append(headers, "X-Naver-Client-Id: EsdO2_lPUhoEdXHyujeU");
+    headers = curl_slist_append(headers, "X-Naver-Client-Secret: 7zgm4WZScz");
+    curl_easy_setopt(ctx, CURLOPT_HTTPHEADER, headers);
+
     curl_easy_setopt(ctx, CURLOPT_NOPROGRESS, 1L);
     //curl_easy_setopt(ctx, CURLOPT_VERBOSE, 1L);
     curl_easy_setopt(ctx, CURLOPT_WRITEHEADER , stderr);
@@ -540,7 +566,10 @@ void VoxVoice::tts(const std::string& text, bool en)
     NOTICE("(VOCE) HTTP response code: %d", retcode);
 
     if(retcode == 200)
-        VoxPlayer::getInstance().play(mp3);
+    {
+        //VoxPlayer::getInstance().play(mp3); // naver-tts mp3 포맷 이상?
+        execProcess("/usr/bin/mpg123 " + mp3);
+    }
     else
         WARNING("(VOCE) unexpected http status");
 
@@ -550,6 +579,12 @@ error_success:
     {
         fclose(fp);
         fp = NULL;
+    }
+
+    if(headers)
+    {
+        curl_slist_free_all(headers);
+        headers = NULL;
     }
 
     if(ctx)
