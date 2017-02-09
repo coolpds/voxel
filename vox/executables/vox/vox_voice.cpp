@@ -292,7 +292,7 @@ std::string VoxVoice::simsimi(const std::string& q)
     //url += "?key=9a3e0abd-6b0a-42e8-bc7b-86ad1627e5e1";
     //url += "&lc=ko&ft=1.0&text=" + encodeUrl(q);
     std::string url = "http://api.simsimi.com/request.p";
-    url += "?key=";
+    url += "?key=fc9db8f9-51ef-4539-be9b-4785ddd838d5";
     url += "&lc=ko&ft=1.0&text=" + encodeUrl(q);
 
     std::string rsphdr = "";
@@ -388,9 +388,9 @@ bool VoxVoice::record()
 }
 
 #define USER_AGENT "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
-#define GOOGLE_APIKEY1 ""
-#define GOOGLE_APIKEY2 ""
-#define GOOGLE_APIKEY3 ""
+#define GOOGLE_APIKEY1 "AIzaSyCSS-Es6pLxKL2WccVyUnOPEAB8zP-sgGY"
+#define GOOGLE_APIKEY2 "AIzaSyC_TtLr3UKjzuUOGGh1XACfSwLHrrCXG4A"
+#define GOOGLE_APIKEY3 "AIzaSyDWCF3aqlyS6ZUZkSj5Q5tIauGi2pZ8ewI"
 
 std::string VoxVoice::stt()
 {
